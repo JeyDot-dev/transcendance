@@ -5,6 +5,7 @@ import asyncio
 
 class PongConsumer(AsyncWebsocketConsumer):
     async def connect(self):
+        self.game_id = self.scope['url_route']['kwargs']['game_id']
         await self.accept()
         self.paddle_height = 100
         self.canvas_width = 800
@@ -41,7 +42,8 @@ class PongConsumer(AsyncWebsocketConsumer):
             'playerScore': self.player_score,
             'aiScore': self.ai_score,
             'ballX': self.ball.x,
-            'ballY': self.ball.y
+            'ballY': self.ball.y,
+            'gameId': str(self.game_id)
         }))
 
     def update_game_state(self):
