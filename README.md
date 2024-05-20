@@ -1,3 +1,6 @@
 # transcendance
+Dependencies:
+pip3 install channels django daphne
 
-by lsohler, lray, jchapell, rlevilla, jsousa-a
+Test sur localhost:8000/:
+python3 manage.py runserver 
