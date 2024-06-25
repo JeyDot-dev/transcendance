@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Variables de jeu
-    var paddleWidth = 0.5, paddleHeight = 0.1, paddleDepth = 0.2;
+    var paddleWidth = 3.7, paddleHeight = 0.1, paddleDepth = 0.2;
     var ballSize = 0.1;
     var paddleSpeed = 0.1, ballSpeed = 0.02;
     var score1 = 0, score2 = 0;
@@ -62,15 +62,15 @@ document.addEventListener('DOMContentLoaded', function() {
     var borderThickness = 0.1;
     var borderMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff });
 
-    var borderTop = new THREE.Mesh(new THREE.BoxGeometry(window.innerWidth / window.innerHeight, borderThickness, 0.2), borderMaterial);
-    var borderBottom = new THREE.Mesh(new THREE.BoxGeometry(window.innerWidth / window.innerHeight, borderThickness, 0.2), borderMaterial);
+    var borderTop = new THREE.Mesh(new THREE.BoxGeometry(window.innerWidth / window.innerHeight * 2, borderThickness, 0.2), borderMaterial);
+    var borderBottom = new THREE.Mesh(new THREE.BoxGeometry(window.innerWidth / window.innerHeight * 2, borderThickness, 0.2), borderMaterial);
     var borderLeft = new THREE.Mesh(new THREE.BoxGeometry(borderThickness, 6, 0.2), borderMaterial);
     var borderRight = new THREE.Mesh(new THREE.BoxGeometry(borderThickness, 6, 0.2), borderMaterial);
 
     borderTop.position.set(0, 3.1, 0);
     borderBottom.position.set(0, -3.1, 0);
-    borderLeft.position.set(-window.innerWidth / window.innerHeight / 2, 0, 0);
-    borderRight.position.set(window.innerWidth / window.innerHeight / 2, 0, 0);
+    borderLeft.position.set(-window.innerWidth / window.innerHeight, 0, 0);
+    borderRight.position.set(window.innerWidth / window.innerHeight, 0, 0);
 
     scene.add(borderTop);
     scene.add(borderBottom);
@@ -122,7 +122,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Création de l'explosion
-    var particleCount = 100;
+    var particleCount = 10;
     var particles = new THREE.BufferGeometry();
     var positions = new Float32Array(particleCount * 3);
     var velocities = new Float32Array(particleCount * 3);
@@ -183,22 +183,26 @@ document.addEventListener('DOMContentLoaded', function() {
             ball.position.x <= paddle1.position.x + paddleWidth / 2) {
                 ballDirection.y = ballSpeed;
                 ballSpeed *= 1.1;
-        }
-        
-        if (ball.position.y + ballSize >= paddle2.position.y - paddleHeight / 2 &&
+				triggerExplosion(ball.position.clone());
+			}
+			
+			if (ball.position.y + ballSize >= paddle2.position.y - paddleHeight / 2 &&
             ball.position.x >= paddle2.position.x - paddleWidth / 2 &&
             ball.position.x <= paddle2.position.x + paddleWidth / 2) {
-                ballDirection.y = -ballSpeed;
+				ballDirection.y = -ballSpeed;
                 ballSpeed *= 1.1;
-        }
-        
-        // Collision avec les bords
-        if (ball.position.x - ballSize <= -window.innerWidth / window.innerHeight / 2) {
-            ballDirection.x = ballSpeed;
+				triggerExplosion(ball.position.clone());
+			}
+			
+			// Collision avec les bords
+			if (ball.position.x - ballSize <= -window.innerWidth / window.innerHeight) {
+				ballDirection.x = ballSpeed;
+				triggerExplosion(ball.position.clone());
         }
 
-        if (ball.position.x + ballSize >= window.innerWidth / window.innerHeight / 2) {
+        if (ball.position.x + ballSize >= window.innerWidth / window.innerHeight) {
             ballDirection.x = -ballSpeed;
+			triggerExplosion(ball.position.clone());
         }
 
         // Collision avec les bords supérieur et inférieur
