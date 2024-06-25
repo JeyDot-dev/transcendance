@@ -13,14 +13,15 @@ from .forms import newGameForm, addPlayer, newTournamentForm
 
 def play(request, game_id):
     game = get_object_or_404(Game, pk=game_id)
-    #template = loader.get_template("database\play.html")
     if request.method == 'POST':
-        player_id = request.POST.get('player')
-        player = game.players.get(pk=player_id)  # Use the custom players property
-        player.points = F("points") + 1
-        player.save()
-        player.refresh_from_db()
-        if player.points >= 5:
+        player_id = int(request.POST.get('player'))
+        if player_id == game.player1.id:
+            game.points1 = F("points1") + 1
+        else:
+            game.points2 = F("points2") + 1
+        game.save()
+        game.refresh_from_db()
+        if game.points1 >= 5 or game.points2 >= 5 :
             return redirect('winner', game_id=game.id)
         return redirect('play', game_id=game.id)
     return render(request, 'database\play.html', {'game': game})
@@ -31,10 +32,10 @@ def winner(request, game_id):
     game.save()
     game.winner.is_winner = True
     game.looser.is_winner = False
+    game.winner.save()
+    game.looser.save()
     game.winner.matchesWon = F("matchesWon") + 1
     response = render(request, 'database\winner.html', {'game': game})
-    game.winner.points = 0
-    game.looser.points = 0
     game.winner.save()
     game.looser.save()
     if game.tournament:
@@ -44,7 +45,7 @@ def winner(request, game_id):
 
 def tournamentWinner(request, t_id):
     tourny = get_object_or_404(Tournament, pk=t_id)
-    #tourny.winner = tourny.players.get(is_winner=True)
+    tourny.winner = tourny.players.get(is_winner=True)
     return render(request, 'database\Tournamentwinner.html', {'tournament': tourny})
 
 
@@ -55,8 +56,6 @@ def newGame(request):
         player2_name = form.cleaned_data['player2_name']
         player1, new1= Player.objects.get_or_create(name=player1_name)
         player2, new1 = Player.objects.get_or_create(name=player2_name)
-        player1.points = 0
-        player2.points = 0
         player1.is_winner = False
         player2.is_winner = False 
         player1.save()
@@ -81,7 +80,6 @@ def addPlayers(request, t_id):
         player_name = form.cleaned_data['player_name']
         player, new = Player.objects.get_or_create(name=player_name)
         player.is_winner = True
-        player.points  = 0
         player.save()
         tournament.add_player(player)
         tournament.save()

@@ -1,4 +1,3 @@
-<!-- app1/templates/winner.html -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,8 +6,8 @@
 <body>
     <h1>Winner: {{ game.winner.name }}</h1>
     <p>Final Score:</p>
-    <p>{{ game.player1.name }}: {{ game.player1.points }}</p>
-    <p>{{ game.player2.name }}: {{ game.player2.points }}</p>
+    <p>{{ game.player1.name }}: {{ game.points1 }}</p>
+    <p>{{ game.player2.name }}: {{ game.points2 }}</p>
     {% if game.tournament %}
     <ul>
         {% for game in game.tournament.games.all %}
