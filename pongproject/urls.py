@@ -20,4 +20,5 @@ from django.urls import include, path
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('pong.urls')),
+    path('', include('pong3d.urls')),
 ]
