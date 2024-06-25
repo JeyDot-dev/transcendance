@@ -9,6 +9,21 @@
     <p>Final Score:</p>
     <p>{{ game.player1.name }}: {{ game.player1.points }}</p>
     <p>{{ game.player2.name }}: {{ game.player2.points }}</p>
-    <a href="{% url 'newGame' %}">Start a New Game</a>
+    {% if game.tournament %}
+    <ul>
+        {% for game in game.tournament.games.all %}
+        <li>{{ game }} : 
+            {% if game.is_played %}
+                {{ game.winner.name }}
+            {% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+        <a href="{% url 'play' game.next_game %}" class="button">Next Game</a>
+    {% else %}
+        <a href="{% url 'newGame' %}" class="button">Start New Game</a>
+    {% endif %}
+    
+    
 </body>
 </html>

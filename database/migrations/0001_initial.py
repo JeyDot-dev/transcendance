@@ -18,7 +18,7 @@ class Migration(migrations.Migration):
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=20)),
                 ('psw', models.CharField(max_length=100)),
-                ('matches_won', models.IntegerField(default=0)),
+                ('matchesWon', models.IntegerField(default=0)),
                 ('points', models.IntegerField(default=0)),
             ],
         ),

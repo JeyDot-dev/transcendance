@@ -4,10 +4,10 @@
     <title>New Tournament</title>
 </head>
 <body>
-    <h1>Winner: {{ game.winner.name }}</h1>
-    <p>Final Score:</p>
-    <p>{{ game.player1.name }}: {{ game.player1.points }}</p>
-    <p>{{ game.player2.name }}: {{ game.player2.points }}</p>
-    <a href="{% url 'newGame' %}">Start a New Game</a>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Next</button>
+    </form>
 </body>
 </html>

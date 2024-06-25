@@ -1,0 +1,18 @@
+<!-- app1/templates/winner.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tournament Winner</title>
+</head>
+<body>
+    <h1>Winner: {{ tournament }}</h1>
+    {% if tournament %}
+    <ul>
+        {% for game in tournament.games.all %}
+        <li>{{ game }} : {{ game.winner.name }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    
+</body>
+</html>
