@@ -1,0 +1,45 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pong 3D</title>
+
+    <script src="{% static 'js/three.js' %}" defer></script>
+    <script src="{% static 'js/puck.js' %}" defer></script>
+    <!-- <script src="{% static 'js/Three.js' %}" defer></script> -->
+    <!-- <script src="{% static 'js/OrbitControls.js' %}" defer></script> -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/three@0.122.0/build/three.min.js"></script> -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/three@0.122.0/examples/js/controls/OrbitControls.min.js"></script> -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/three@0.122.0/examples/js/controls/TrackballControls.min.js"></script> -->
+    <script src="{% static 'js/TrackballControls.js' %}" defer></script>
+
+    <script src="{% static 'js/pong3d.js' %}" defer></script>
+    <style>
+        body { margin: 0; }
+        canvas { display: block; }
+        #score1, #score2 {
+            position: absolute;
+            top: 50%;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        #score1 { left: 35%; color: rgb(19, 71, 175); }
+        #score2 { right: 35%; color: rgb(170, 7, 149); }
+        button {
+            position: absolute;
+            top: 40px;
+            left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="score1">0</div>
+    <div id="score2">0</div>
+    <button id="resetButton">Reset Camera</button>
+</body>
+</html>
+
+</html>
