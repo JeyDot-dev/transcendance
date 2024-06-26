@@ -186,10 +186,10 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Fonction de mise à jour des scores
-    function updateScores() {
-        document.getElementById('score1').innerText = score1;
-        document.getElementById('score2').innerText = score2;
-    }
+    // function updateScores() {
+    //     // document.getElementById('score1').innerText = score1;
+    //     // document.getElementById('score2').innerText = score2;
+    // }
 
     // Création de l'explosion
     var particleCount = 100;
@@ -286,7 +286,7 @@ document.addEventListener('DOMContentLoaded', function() {
             score2++;
             updateScoreP2Text(score2);
             triggerExplosion(puck.position.clone());
-            updateScores();
+            // updateScores();
             puck.reset();
         }
 
@@ -294,7 +294,7 @@ document.addEventListener('DOMContentLoaded', function() {
             score1++;
             updateScoreP1Text(score1);
             triggerExplosion(puck.position.clone());
-            updateScores();
+            // updateScores();
             puck.reset();
         }
     }
@@ -439,7 +439,7 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
     // Initialiser les scores
-    updateScores();
+    // updateScores();
     // Initialiser la position de puck
     puck.reset();
 
